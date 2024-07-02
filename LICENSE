@@ -1,0 +1,15 @@
+The license gets important once you publish the code.
+
+Prefer one of MIT, 2-BSD or 3-BSD, GPL, Apache.
+Check with your institution, advisor, colleagues, data steward etc.
+Note: Creative Commons licenses are more for text or data analysis, not for a software package.
+
+Note that you can always change the license, as you are the owner (but prefer not to).
+
+Don't invent your own license, nor a "silly" license such as WTFPL, which may not hold up in real iffy situations (though really unlikely).
+There is also the public domain, which means there is no ownership; probably not useable.
+No license essentially means the code is private (even with public visibility; the code can be viewed, but not used).
+
+Note:
+- copyright: likely your employer
+- author(s): you & other developers
