@@ -7,10 +7,12 @@ integrator.
 
 """
 
+import argparse
+
 import numpy as np
 import matplotlib.pyplot as plt
 
-GM = 4*np.pi**2
+GM = 4 * np.pi**2
 
 
 class OrbitState:
@@ -23,23 +25,25 @@ class OrbitState:
         self.v = v
 
     def __add__(self, other):
-        return OrbitState(self.x + other.x, self.y + other.y,
-                          self.u + other.u, self.v + other.v)
+        return OrbitState(
+            self.x + other.x, self.y + other.y, self.u + other.u, self.v + other.v
+        )
 
     def __sub__(self, other):
-        return OrbitState(self.x - other.x, self.y - other.y,
-                          self.u - other.u, self.v - other.v)
+        return OrbitState(
+            self.x - other.x, self.y - other.y, self.u - other.u, self.v - other.v
+        )
 
     def __mul__(self, other):
-        return OrbitState(other * self.x, other * self.y,
-                          other * self.u, other * self.v)
+        return OrbitState(
+            other * self.x, other * self.y, other * self.u, other * self.v
+        )
 
     def __rmul__(self, other):
         return self.__mul__(other)
 
     def __str__(self):
         return f"{self.x:10.6f} {self.y:10.6f} {self.u:10.6f} {self.v:10.6f}"
-
 
 
 def rhs(state):
@@ -84,7 +88,6 @@ def euler_orbit(state0, tau, T):
 
     # main timestep loop
     while t < T:
-
         state_old = history[-1]
 
         # make sure that the last step does not take us past T
@@ -126,7 +129,7 @@ def plot(history, ax=None, label=None):
         ax = fig.add_subplot(111)
 
         # draw the Sun
-        ax.scatter([0], [0], marker=(20,1), color="y", s=250)
+        ax.scatter([0], [0], marker=(20, 1), color="y", s=250)
 
     # draw the orbit
     xs = [q.x for q in history]
@@ -142,9 +145,24 @@ def plot(history, ax=None, label=None):
     return fig
 
 
+def run_euler(taus):
+    state0 = initial_conditions()
+
+    fig = None
+    for tau in taus:
+        times, history = euler_orbit(state0, tau, 1)
+
+        label = rf"$\tau = {tau:6.4f}$"
+        if not fig:
+            fig = plot(history, label=label)
+        else:
+            plot(history, ax=fig.gca(), label=label)
+    fig.gca().legend()
+
+    return fig
+
 
 def int_rk2(state0, tau, T):
-
     times = []
     history = []
 
@@ -157,7 +175,6 @@ def int_rk2(state0, tau, T):
 
     # main timestep loop
     while t < T:
-
         state_old = history[-1]
 
         # make sure that the last step does not take us past T
@@ -184,33 +201,18 @@ def int_rk2(state0, tau, T):
     return times, history
 
 
-# Try the new integrator with 1 month timestep
-
-# In[11]:
-
-
-def run_rk2(tau=1/12):
-
+def run_rk2(taus):
     state0 = initial_conditions()
 
-    times, history = int_rk2(state0, tau, 1)
-    fig = plot(history)
-
-    return fig
-
-
-def run_rk2_multiple():
-    taus = [0.1, 0.05, 0.025, 0.0125]
-
-    state0 = initial_conditions()
-
-    for n, tau in enumerate(taus):
+    fig = None
+    for tau in taus:
         times, history = int_rk2(state0, tau, 1)
 
-        if n == 0:
-            fig = plot(history, label=rf"$\tau = {tau:6.4f}$")
+        label = rf"$\tau = {tau:6.4f}$"
+        if not fig:
+            fig = plot(history, label=label)
         else:
-            plot(history, ax=fig.gca(), label=rf"$\tau = {tau:6.4f}$")
+            plot(history, ax=fig.gca(), label=label)
 
     fig.gca().legend()
 
@@ -218,7 +220,6 @@ def run_rk2_multiple():
 
 
 def int_rk4(state0, tau, T):
-
     times = []
     history = []
 
@@ -231,7 +232,6 @@ def int_rk4(state0, tau, T):
 
     # main timestep loop
     while t < T:
-
         state_old = history[-1]
 
         # make sure that the last step does not take us past T
@@ -251,7 +251,7 @@ def int_rk4(state0, tau, T):
         k4 = rhs(state_tmp)
 
         # do the final update
-        state_new = state_old + tau / 6.0 * (k1 + 2*k2 + 2*k3 + k4)
+        state_new = state_old + tau / 6.0 * (k1 + 2 * k2 + 2 * k3 + k4)
         t += tau
 
         # store the state
@@ -261,32 +261,18 @@ def int_rk4(state0, tau, T):
     return times, history
 
 
-def run_rk4():
-
+def run_rk4(taus):
     state0 = initial_conditions()
 
-    tau = 1.0/12.0
-
-    times, history = int_rk4(state0, tau, 1)
-
-    fig = plot(history)
-
-    return fig
-
-
-
-def run_rk4_multiple():
-    taus = [0.1, 0.05, 0.025]
-
-    state0 = initial_conditions()
-
-    for n, tau in enumerate(taus):
+    fig = None
+    for tau in taus:
         times, history = int_rk4(state0, tau, 1)
 
-        if n == 0:
-            fig = plot(history, label=rf"$\tau = {tau:6.4f}$")
+        label = rf"$\tau = {tau:6.4f}$"
+        if not fig:
+            fig = plot(history, label=label)
         else:
-            plot(history, ax=fig.gca(), label=rf"$\tau = {tau:6.4f}$")
+            plot(history, ax=fig.gca(), label=label)
 
     fig.gca().legend()
 
@@ -294,18 +280,15 @@ def run_rk4_multiple():
 
 
 def run_rk4_elliptical():
-
     a = 1.0
     e = 0.6
 
     x0 = 0
     y0 = a * (1 - e)
-    u0 = -np.sqrt(GM / a * (1 + e)/(1 - e))
+    u0 = -np.sqrt(GM / a * (1 + e) / (1 - e))
     v0 = 0
 
     state0 = OrbitState(x0, y0, u0, v0)
-
-
 
     tau = 0.025
     T = 1
@@ -317,13 +300,32 @@ def run_rk4_elliptical():
     return fig
 
 
-def run():
-    run_rk2()
-    run_rk2_multiple()
-    run_rk4()
-    run_rk4_multiple()
-    run_rk4_elliptical()
+def run(integrator, tau):
+    if isinstance(tau, (int, float)):
+        tau = [tau]
+
+    if integrator == "euler":
+        run_euler(tau)
+    elif integrator == "rk2":
+        run_rk2(tau)
+    elif integrator == "rk4":
+        run_rk4(tau)
 
 
-if __name__ == '__main__':
-    run()
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "integrator", choices=["euler", "rk2", "rk4"], help="Pick an integrator"
+    )
+    parser.add_argument(
+        "--tau", type=float, action="append", help="Specify step size(s)"
+    )
+    args = parser.parse_args()
+    if not args.tau:
+        args.tau = [0.1]
+
+    run(args.integrator, tau=args.tau)
+
+
+if __name__ == "__main__":
+    main()
