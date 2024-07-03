@@ -1,10 +1,12 @@
+"""Module with different ODE integrators"""
+
 from ..equations import rhs
 
 
-__all__ = ["euler_orbit", "int_rk2", "int_rk4"]
+__all__ = ["integrate_euler", "integrate_rk2", "integrate_rk4"]
 
 
-def euler_orbit(state0, tau, tend=1):
+def integrate_euler(state0, tau, tend=1):
     """Integrate an orbit given an initial position, pos0, and velocity, vel0,
     using first-order Euler integration"""
 
@@ -40,7 +42,10 @@ def euler_orbit(state0, tau, tend=1):
     return times, history
 
 
-def int_rk2(state0, tau, tend=1):
+def integrate_rk2(state0, tau, tend=1):
+    """Integrate an orbit given an initial position, pos0, and velocity, vel0,
+    using second-order Runge-Kutta integration"""
+
     times = []
     history = []
 
@@ -79,7 +84,10 @@ def int_rk2(state0, tau, tend=1):
     return times, history
 
 
-def int_rk4(state0, tau, tend=1):
+def integrate_rk4(state0, tau, tend=1):
+    """Integrate an orbit given an initial position, pos0, and velocity, vel0,
+    using fourth-order Runge-Kutta integration"""
+
     times = []
     history = []
 

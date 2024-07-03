@@ -1,3 +1,6 @@
+"""Module containing helper state classes to hold information about the moving bodies"""
+
+
 __all__ = ["OrbitState"]
 
 

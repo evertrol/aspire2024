@@ -1,13 +1,17 @@
+"""Module for initial conditions"""
+
 import numpy as np
 
 from .integrators.states import OrbitState
 from .constants import GM
 
 
-__all__ = ["GM", "initial_conditions"]
+__all__ = ["GM", "init_circular"]
 
 
-def initial_conditions():
+def init_circular():
+    """Set initial conditions for a circular orbit"""
+
     x0 = 0
     y0 = 1
     u0 = -np.sqrt(GM / y0)

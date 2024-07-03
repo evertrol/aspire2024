@@ -1,8 +1,10 @@
+"""Module with helper runner functions"""
+
 import numpy as np
 
 from .plotting.core import plot
-from .core import initial_conditions, GM
-from .integrators import euler_orbit, int_rk2, int_rk4
+from .core import init_circular, GM
+from .integrators import integrate_euler, integrate_rk2, integrate_rk4
 from .integrators.states import OrbitState
 
 
@@ -10,11 +12,13 @@ __all__ = ["run_euler", "run_rk2", "run_rk4", "run_rk4_elliptical"]
 
 
 def run_euler(taus):
-    state0 = initial_conditions()
+    """Run an Euler orbit integration, for one orbit"""
+
+    state0 = init_circular()
 
     fig = None
     for tau in taus:
-        _, history = euler_orbit(state0, tau, 1)
+        _, history = integrate_euler(state0, tau, 1)
 
         label = rf"$\tau = {tau:6.4f}$"
         if not fig:
@@ -27,11 +31,13 @@ def run_euler(taus):
 
 
 def run_rk2(taus):
-    state0 = initial_conditions()
+    """Run a second-order Runge-Kutta orbit integration, for one orbit"""
+
+    state0 = init_circular()
 
     fig = None
     for tau in taus:
-        _, history = int_rk2(state0, tau, 1)
+        _, history = integrate_rk2(state0, tau, 1)
 
         label = rf"$\tau = {tau:6.4f}$"
         if not fig:
@@ -45,11 +51,13 @@ def run_rk2(taus):
 
 
 def run_rk4(taus):
-    state0 = initial_conditions()
+    """Run a fourth-order Runge-Kutta orbit integration, for one orbit"""
+
+    state0 = init_circular()
 
     fig = None
     for tau in taus:
-        _, history = int_rk4(state0, tau, 1)
+        _, history = integrate_rk4(state0, tau, 1)
 
         label = rf"$\tau = {tau:6.4f}$"
         if not fig:
@@ -63,6 +71,8 @@ def run_rk4(taus):
 
 
 def run_rk4_elliptical():
+    """Run a fourth-order Runge-Kutta orbit integration, for a circular orbit"""
+
     a = 1.0
     e = 0.6
 
@@ -75,7 +85,7 @@ def run_rk4_elliptical():
 
     tau = 0.025
 
-    _, history = int_rk4(state0, tau, 1)
+    _, history = integrate_rk4(state0, tau, 1)
 
     fig = plot(history)
 
