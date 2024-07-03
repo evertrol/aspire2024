@@ -21,8 +21,8 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools.packages.find]
 where = ["src/"]
 
-[tool.setuptools]
-script-files = ["scripts/orbit_integrator"]
+[project.scripts]
+orbit_integrator = "aspire.__main__:main"
 
 
 # Tools and packages to install to help with project development
