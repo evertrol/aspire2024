@@ -9,7 +9,7 @@ integrator.
 
 import argparse
 
-import integrators
+import aspire
 
 
 def run(integrator, tau):
@@ -17,11 +17,11 @@ def run(integrator, tau):
         tau = [tau]
 
     if integrator == "euler":
-        integrators.run_euler(tau)
+        aspire.run_euler(tau)
     elif integrator == "rk2":
-        integrators.run_rk2(tau)
+        aspire.run_rk2(tau)
     elif integrator == "rk4":
-        integrators.run_rk4(tau)
+        aspire.run_rk4(tau)
 
 
 def main():
