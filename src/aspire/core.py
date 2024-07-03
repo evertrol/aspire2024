@@ -9,7 +9,7 @@ from .constants import GM
 __all__ = ["GM", "init_circular", "init_elliptical"]
 
 
-def init_circular():
+def init_circular() -> OrbitState:
     """Set initial conditions for a circular orbit"""
 
     x0 = 0
@@ -20,7 +20,7 @@ def init_circular():
     return OrbitState(x0, y0, u0, v0)
 
 
-def init_elliptical():
+def init_elliptical() -> OrbitState:
     """Set initial conditions for an elliptical orbit"""
 
     a = 1.0

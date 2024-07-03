@@ -1,10 +1,16 @@
+from matplotlib.axes._axes import Axes
+from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
+
+from ..integrators.states import OrbitState
 
 
 __all__ = ["plot"]
 
 
-def plot(history, ax=None, label=None):
+def plot(
+    history: list[OrbitState], ax: None | Axes = None, label: None | str = None
+) -> None | Figure:
     """make a plot of the solution.  If ax is None we setup a figure
     and make the entire plot returning the figure object, otherwise, we
     just append the plot to a current axis"""
@@ -16,7 +22,7 @@ def plot(history, ax=None, label=None):
         ax = fig.add_subplot(111)
 
         # draw the Sun
-        ax.scatter([0], [0], marker=(20, 1), color="y", s=250)
+        ax.scatter([0], [0], marker=(20, 1, 0), color="y", s=250)  # type: ignore
 
     # draw the orbit
     xs = [q.x for q in history]

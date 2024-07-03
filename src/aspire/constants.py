@@ -2,4 +2,4 @@
 
 import numpy as np
 
-GM = 4 * np.pi**2
+GM: float = 4 * np.pi**2

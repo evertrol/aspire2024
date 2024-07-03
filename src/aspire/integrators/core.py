@@ -1,12 +1,15 @@
 """Module with different ODE integrators"""
 
+from .states import OrbitState
 from ..equations import rhs
 
 
 __all__ = ["integrate_euler", "integrate_rk2", "integrate_rk4"]
 
 
-def integrate_euler(state0, tau, tend=1):
+def integrate_euler(
+    state0: OrbitState, tau: float, tend: float = 1.0
+) -> tuple[list[float], list[OrbitState]]:
     """Integrate an orbit given an initial position, pos0, and velocity, vel0,
     using first-order Euler integration"""
 
@@ -14,7 +17,7 @@ def integrate_euler(state0, tau, tend=1):
     history = []
 
     # initialize time
-    t = 0
+    t: float = 0
 
     # store the initial conditions
     times.append(t)
@@ -42,7 +45,9 @@ def integrate_euler(state0, tau, tend=1):
     return times, history
 
 
-def integrate_rk2(state0, tau, tend=1):
+def integrate_rk2(
+    state0: OrbitState, tau: float, tend: float = 1.0
+) -> tuple[list[float], list[OrbitState]]:
     """Integrate an orbit given an initial position, pos0, and velocity, vel0,
     using second-order Runge-Kutta integration"""
 
@@ -50,7 +55,7 @@ def integrate_rk2(state0, tau, tend=1):
     history = []
 
     # initialize time
-    t = 0
+    t = 0.0
 
     # store the initial conditions
     times.append(t)
@@ -84,7 +89,9 @@ def integrate_rk2(state0, tau, tend=1):
     return times, history
 
 
-def integrate_rk4(state0, tau, tend=1):
+def integrate_rk4(
+    state0: OrbitState, tau: float, tend: float = 1.0
+) -> tuple[list[float], list[OrbitState]]:
     """Integrate an orbit given an initial position, pos0, and velocity, vel0,
     using fourth-order Runge-Kutta integration"""
 
@@ -92,7 +99,7 @@ def integrate_rk4(state0, tau, tend=1):
     history = []
 
     # initialize time
-    t = 0
+    t = 0.0
 
     # store the initial conditions
     times.append(t)

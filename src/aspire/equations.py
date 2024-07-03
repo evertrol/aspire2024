@@ -7,7 +7,7 @@ from .constants import GM
 __all__ = ["rhs"]
 
 
-def rhs(state):
+def rhs(state: OrbitState) -> OrbitState:
     r"""RHS of the equations of motion
 
     \dot{\bf r} = {\bf v}
