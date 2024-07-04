@@ -1,4 +1,5 @@
 import numpy as np
+import pytest
 
 from aspire.integrators.states import OrbitState
 from aspire.integrators.core import integrate_euler
@@ -16,3 +17,9 @@ def test_integrate_euler():
     assert np.array_equal(y, [0, 0] + 10 * [np.nan], equal_nan=True)
     assert np.array_equal(u, [0] + 11 * [np.nan], equal_nan=True)
     assert np.array_equal(v, [0] + 11 * [np.nan], equal_nan=True)
+
+    with pytest.raises(ValueError, match="tau should be larger than 0"):
+        history, times = integrate_euler(state, -0.1)
+
+    with pytest.raises(ValueError, match="tend should be larger than tau"):
+        history, times = integrate_euler(state, 0.1, 0.01)

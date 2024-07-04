@@ -13,6 +13,11 @@ def integrate_euler(
     """Integrate an orbit given an initial position, pos0, and velocity, vel0,
     using first-order Euler integration"""
 
+    if tau <= 0:
+        raise ValueError("tau should be larger than 0")
+    if tend < tau:
+        raise ValueError("tend should be larger than tau")
+
     times = []
     history = []
 
