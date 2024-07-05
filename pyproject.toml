@@ -34,6 +34,7 @@ orbit_integrator = "aspire.__main__:main"
 dev = [
     "pytest ~= 8.2.0",
     "black ~= 24.4.0",
+    "ruff ~= 0.1.8",
     "pylint ~= 3.1",
     "pyproject-flake8 ~= 7.0",
     "mypy ~= 1.9",
