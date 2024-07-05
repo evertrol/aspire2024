@@ -10,6 +10,8 @@ Welcome to Aspire's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   introduction
+   userguide
    modules
 
 
