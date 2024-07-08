@@ -33,3 +33,6 @@ class OrbitState:
 
     def __str__(self):
         return f"{self.x:10.6f} {self.y:10.6f} {self.u:10.6f} {self.v:10.6f}"
+
+    def _repr_html_(self):
+        return str(self)
