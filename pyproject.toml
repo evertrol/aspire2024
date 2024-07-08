@@ -39,6 +39,9 @@ dev = [
     "pyproject-flake8 ~= 7.0",
     "mypy ~= 1.9",
     "sphinx ~= 7.3",
+    "build ~= 1.2.1",
+    "wheel ~= 0.43",
+    "twine ~= 5.1.1",
     #"myst-parser ~= 2.0",  # when using Markdown with Sphinx
 ]
 
