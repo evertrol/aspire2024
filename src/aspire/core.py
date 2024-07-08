@@ -6,7 +6,7 @@ from .integrators.states import OrbitState
 from .constants import GM
 
 
-__all__ = ["GM", "init_circular", "init_elliptical"]
+__all__ = ["init_circular", "init_elliptical"]
 
 
 def init_circular() -> OrbitState:
