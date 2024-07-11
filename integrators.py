@@ -282,7 +282,6 @@ def run_rk4_elliptical():
     tau = 0.025
 
     _, history = int_rk4(state0, tau, 1)
-
-    fig = plot(history)
+    fig=plot(history)
 
     return fig
